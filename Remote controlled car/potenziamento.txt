@@ -1,0 +1,8 @@
+var error2=SpeedLevel - ingresso[i-del];
+
+var error5=WheelPos - ingresso3[i-del];
+
+if(error2==0) {uscita[i]=uscita[i-1];}
+else{uscita[i] = (uscita[i - 1] + uscita[i-del] - uscita[i-2*del]+ error2)/2;}
+if(error5==0) {uscita3[i]=uscita3[i-1];}
+else{uscita3[i] = (uscita3[i - 1] + uscita3[i-del] - uscita3[i-2*del] + error5)/2;}

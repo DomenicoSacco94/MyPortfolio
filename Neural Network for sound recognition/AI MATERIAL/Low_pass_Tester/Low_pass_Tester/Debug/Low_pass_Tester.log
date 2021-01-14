@@ -1,0 +1,7 @@
+﻿  Main.cpp
+c:\users\domis\documents\visual studio 2015\projects\low_pass_tester\low_pass_tester\main.cpp(74): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\domis\documents\visual studio 2015\projects\low_pass_tester\low_pass_tester\main.cpp(75): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\domis\documents\visual studio 2015\projects\low_pass_tester\low_pass_tester\main.cpp(76): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\domis\documents\visual studio 2015\projects\low_pass_tester\low_pass_tester\main.cpp(88): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  Low_pass_Tester.vcxproj -> c:\users\domis\documents\visual studio 2015\Projects\Low_pass_Tester\Debug\Low_pass_Tester.exe
+  Low_pass_Tester.vcxproj -> c:\users\domis\documents\visual studio 2015\Projects\Low_pass_Tester\Debug\Low_pass_Tester.pdb (Partial PDB)

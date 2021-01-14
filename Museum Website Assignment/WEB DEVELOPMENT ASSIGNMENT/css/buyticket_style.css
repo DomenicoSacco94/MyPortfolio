@@ -1,0 +1,90 @@
+
+/* ELEMENTS SPECIFIC FOR THE BUY TICKET PAGE */
+
+select {
+    font-size: 1em;
+    border:2px solid black;
+    margin-bottom: 30px;
+}
+
+.input_text {
+    margin-top:10px;
+    margin-bottom:30px;
+    text-indent: 0px;
+    border:2px solid black;
+    font-size: 0.8em;
+}
+
+#num_descr {
+    display: inline-block;
+}
+
+.ticket_data {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+#ccn_input{ 
+    width: 350px;
+} 
+
+#month_input{
+    width: 40px;
+    text-indent: 0px;
+}
+
+#year_input {
+    width: 40px;
+    text-indent: 0px;
+}
+
+#cvv_input {
+    width: 40px;
+    text-indent: 0px;
+    margin-bottom: 10px;
+}
+
+.page_div{
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-top: 40px;
+    font-family: Arial;
+    font-weight: normal;
+}
+
+/* 1024 PIXEL BREAKPOINT */
+
+@media only screen and (max-width: 1024px) {
+    
+    .page_div {
+        font-size: 1.3em;
+    }
+    
+    #ticket_price {
+        font-size: 1.3em;
+    }
+    
+}
+
+/* 768 PIXEL BREAKPOINT */
+
+@media only screen and (max-width: 768px) {
+    
+    #month_input{
+    width: 26px;
+    text-indent: 3px;
+    }
+
+    #year_input {
+    width: 26px;
+    text-indent: 3px;
+    }
+
+    #cvv_input {
+    width: 26px;
+    text-indent: 3px;
+    }
+    
+}

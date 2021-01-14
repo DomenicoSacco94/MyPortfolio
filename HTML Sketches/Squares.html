@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            #acanvas{border:1px solid black;}
+        </style>
+        <script type="text/javascript">
+            function cle()
+            {
+                var Aicanvas=document.getElementById("acanvas");
+                var ctx=Aicanvas.getContext('2d');
+                ctx.fillStyle="#FFFFFF";
+                ctx.beginPath();
+                ctx.fillRect(0,0,300,300);
+            }
+        </script>
+        <script type="text/javascript">
+            function draw()
+            {
+                var Aicanvas=document.getElementById("acanvas");
+                var ctx=Aicanvas.getContext('2d');
+                var x1=document.forms["myform"]["x1"].value;
+                var y1=document.forms["myform"]["y1"].value;
+                var x2=document.forms["myform"]["x2"].value;
+                var y2=document.forms["myform"]["y2"].value;
+                ctx.fillStyle="#FF0000";
+                ctx.fillRect(x1,y1,x2,y2);
+                ctx.fill();
+            }
+        </script>
+        <script type="text/javascript">
+            function ran()
+            {
+                var Aicanvas=document.getElementById("acanvas");
+                var ctx=Aicanvas.getContext('2d');
+                var x1=Math.floor((Math.random()*1000)%300);
+                var y1=Math.floor((Math.random()*1000)%300);
+                var x2=Math.floor((Math.random()*1000)%300);
+                var y2=Math.floor((Math.random()*1000)%300);
+                ctx.fillStyle=getRandomColor();
+                ctx.fillRect(x1,y1,x2,y2);
+                ctx.fill();
+            }
+            function getRandomColor() 
+            {
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.round(Math.random() * 15)];
+            }
+            return color;
+            }
+        </script>
+    </head>
+    <body>
+        <input type="button" value="Clear" onclick="cle();">
+        <input type="button" value="Draw" onclick="draw();">
+        <input type="button" value="Randomize" onclick="ran();">
+        <br>
+        <canvas id="acanvas" width="300" height="300"> </canvas>
+        <br>
+        <form name="myform">
+        Enter x1: <input type="text" name="x1">
+        <br>
+        Enter y1: <input type="text" name="y1">
+        <br>
+        Enter Width: <input type="text" name="x2">
+        <br>
+        Enter Height: <input type="text" name="y2">
+        <br>
+        </form>
+    </body>
+</html>

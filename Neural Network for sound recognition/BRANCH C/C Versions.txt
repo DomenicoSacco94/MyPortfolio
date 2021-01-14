@@ -1,0 +1,26 @@
+---BRANCH B---
+
+Vocal recognition with a neural network, real time analysis,
+it recognises whistles
+
+----------------------------------------------------------------------
+
+V14 Only 2 classes, effective voice tresholding, 
+ALL COEFFICIENTS INCLUDED, true or false whistle,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+all environmental conditions
+Eight of second samples
+COMMAND AT THE WHISTLE !
+PRE TRAINED NEURAL NETWORK, INSTANT LOADING !
+
+V15 Only 2 classes, effective voice tresholding, 
+ALL COEFFICIENTS INCLUDED, true or false whistle,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+all environmental conditions
+Eight of second samples
+COMMAND AT THE WHISTLE !
+MORE ACCURACY !

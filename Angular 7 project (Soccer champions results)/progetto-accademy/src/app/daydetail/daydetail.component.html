@@ -1,0 +1,10 @@
+
+<div  *ngIf="day">
+    <h3> Dettagli giornata </h3>
+<div>
+    Numero giornata: {{day.dayOfMatch}}
+    <table>
+            <tr *ngFor="let match of day.matches"> <td><a routerLink="/matchtable/matchdetail/{{match.id}}" class="more"> Info </a> </td> <td> {{match.homeTeamName}} contro {{match.awayTeamName}} </td> </tr>
+    </table>
+</div>
+</div>

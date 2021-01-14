@@ -1,0 +1,14 @@
+body{
+    height: 100%;
+    background-size: auto 100%;
+    background: url(../assets/1d16502bc9ec8bbf8f58f0c33b9f3b80.jpg);
+    background-attachment: fixed;
+} 
+
+a {
+    color: white;
+}
+
+html {
+    height:100%;
+}

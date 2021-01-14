@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "SecondAssignmentSQL", "SecondAssignmentSQL\SecondAssignmentSQL.dtproj", "{B8357B3F-467D-4C68-A6A0-CAB4C63940A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8357B3F-467D-4C68-A6A0-CAB4C63940A9}.Development|Default.ActiveCfg = Development
+		{B8357B3F-467D-4C68-A6A0-CAB4C63940A9}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A9796E1A-C6B5-4D4C-AD03-07CD61D0E28C}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,173 @@
+#include "opencv2/opencv.hpp"
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+#define SAMPLE_NUMBERS 50
+using namespace cv;
+using namespace cv::ml;
+using namespace std;
+
+Mat get_chunk(int number) {
+	Mat to_predict(1, SAMPLE_NUMBERS, CV_32F);
+	int position = 0;
+	int row_counter = 0;
+	int curr_value = 0;
+	std::ifstream input("C:\\Users\\domis\\Desktop\\ARTIFICIAL_INTELLIGENCE\\data_set.test");
+	for (std::string line; getline(input, line); )
+	{
+		istringstream iss(line);
+		position = 0;
+		do
+		{
+			string subs;
+			iss >> subs;
+			curr_value = stoi(subs, nullptr, 10);
+			if (row_counter == number) {
+				to_predict.at<float>(0, position) = float(curr_value);
+				//cout << "Substring: " << to_predict.at<float>(0, position) << endl;
+			}
+			position++;
+
+		} while (position<SAMPLE_NUMBERS);
+		row_counter++;
+		if (row_counter > number) { break; }
+	}
+	return to_predict;
+}
+
+Mat get_input(int num_samples) {
+	Mat inp_nn(num_samples, SAMPLE_NUMBERS, CV_32F);
+	int position = 0;
+	int row_counter = 0;
+	int curr_value = 0;
+	std::ifstream input("C:\\Users\\domis\\Desktop\\ARTIFICIAL_INTELLIGENCE\\data_set.train");
+	for (std::string line; getline(input, line); )
+	{
+		istringstream iss(line);
+		position = 0;
+		do
+		{
+			string subs;
+			iss >> subs;
+			curr_value = stoi(subs, nullptr, 10);
+			inp_nn.at<float>(row_counter, position) = float(curr_value);
+			//cout << "Substring: " << inp_nn.at<float>(row_counter, position) << endl;
+			position++;
+
+		} while (position<SAMPLE_NUMBERS);
+		row_counter++;
+		if (row_counter == num_samples) { break; }
+	}
+	return inp_nn;
+}
+
+Mat get_output(int num_samples) {
+	Mat out_nn(num_samples, 1, CV_32F);
+	int position = 0;
+	int row_counter = 0;
+	int curr_value = 0;
+	std::ifstream input("C:\\Users\\domis\\Desktop\\ARTIFICIAL_INTELLIGENCE\\data_set.train");
+	for (std::string line; getline(input, line); )
+	{
+		istringstream iss(line);
+		position = 0;
+		do
+		{
+			string subs;
+			iss >> subs;
+			curr_value = stoi(subs, nullptr, 10);
+			if (position == SAMPLE_NUMBERS)
+			{
+				if (curr_value == 0) {
+					out_nn.at<float>(row_counter, 0) = -0.9;
+				}
+				if (curr_value == 1) {
+					out_nn.at<float>(row_counter, 0) = 0.9;
+				}
+				//cout << "Substring: " << out_nn.at<float>(row_counter, 0) << endl;
+			}
+			position++;
+
+		} while (position<SAMPLE_NUMBERS + 1);
+
+		row_counter++;
+		if (row_counter == num_samples) { break; }
+	}
+	return out_nn;
+}
+
+int main()
+{
+	int num_samples = 5678;
+
+	Mat inp_nn; // input patterns, up to 300 examples
+				// each pattern is 6 float 32-bit values
+				// the 6 values translate the visual figure to identify
+
+	Mat out_nn; // output patterns formed by 3 values- one neuron by each class, up to 300 examples
+
+	Mat to_predict; //external prediction, not belonging even to the initial test set, further control...
+
+	Mat predicted_outcome(1, 1, CV_32F); //predicted for external outcome
+
+	Mat ls = (Mat_<int>(1, 3) << 50, 5, 1); //20 inputs nodes,
+												 // 10 hidden neurons 
+												 // 2 output neurons
+												 // it is just introducing the vector in matrix ls to determine the layers
+
+	Ptr<ANN_MLP> nn = cv::ml::ANN_MLP::create();; // preparing the neural network (ANN_MLP) mlp is for multilevel perceptron
+
+	nn->setLayerSizes(ls); // define de neural structure using ls
+
+	nn->setActivationFunction(cv::ml::ANN_MLP::SIGMOID_SYM); // activation function to be used in each neuron
+
+	nn->setTrainMethod(cv::ml::ANN_MLP::BACKPROP, 0.01, 0.8); 	// training: BACKPROP, learning=0.01, momentum=0.8
+
+	nn->setTermCriteria(TermCriteria(cv::TermCriteria::COUNT + cv::TermCriteria::EPS, 100000, 0.01));
+	// stop criteria: by iteration number and maximun error (whichever comes first)
+
+	inp_nn = get_input(num_samples);
+
+	out_nn = get_output(num_samples);
+
+	cv::Ptr<cv::ml::TrainData> data_set = TrainData::create(inp_nn, cv::ml::ROW_SAMPLE, out_nn);
+	data_set->setTrainTestSplitRatio(0.80, true);
+
+	nn->train(data_set);
+	//   Start the training
+
+	cout << "TRAINING ENDED, MARVELOUS !!\n";
+
+	cv::Mat results;
+	float train_performance = nn->calcError(data_set,
+		false, // use train data
+		results // cv::noArray()
+	);
+
+	float test_performance = nn->calcError(data_set,
+		true, // use test data
+		results // cv::noArray()
+	);
+
+	cout << "Performance on training data: " << train_performance << " % error" << endl;
+	cout << "Performance on test data: " << test_performance << " % error " << endl;
+
+	float avg1 = 0;
+
+	for (int i = 0; i < 30; i++) {
+
+		to_predict = get_chunk(i);
+
+		nn->predict(to_predict, predicted_outcome);
+
+		cout << predicted_outcome.at<float>(0, 0) << endl;
+
+		avg1 += predicted_outcome.at<float>(0, 0);
+	}
+
+	cout << "AVERAGE RESULTS: " << avg1 / 30 << endl;
+
+	float x = 0;
+
+	cin >> x;
+} // main

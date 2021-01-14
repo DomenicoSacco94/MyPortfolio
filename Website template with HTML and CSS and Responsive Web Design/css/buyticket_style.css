@@ -1,0 +1,76 @@
+/* ELEMENTS SPECIFIC FOR THE BUY TICKET PAGE */
+
+select {
+    font-size: 1em;
+    border:2px solid black;
+    margin-bottom: 30px;
+}
+
+.input_text {
+    margin-top:10px;
+    margin-bottom:30px;
+    color: grey;
+    text-indent: 10px;
+    border:2px solid black;
+    font-size: 0.8em;
+}
+
+#num_descr {
+    display: inline-block;
+}
+
+#ticket_price {
+    text-align: left;
+    margin-left: 50px;
+    margin-top: 60px;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+#next_button {
+    background: #3F48CC;
+    color: white;
+    margin-right: 50px;
+    float: right;
+    border-color: #3F48CC;
+    font-weight: bold;
+    font-size: 1.5em;
+    width: max-content;
+}
+
+
+main div:last-child {
+    margin-top: 50px;
+}
+
+
+.page_div{
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-top: 40px;
+    font-family: Arial;
+    font-weight: normal;
+}
+
+@media only screen and (max-width: 1024px) {
+    
+    .page_div {
+        font-size: 1.3em;
+    }
+    
+    #ticket_price {
+        font-size: 1.1em;
+    }
+    
+    #next_button {
+        font-size: 1.2em;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    
+    .page_div {
+        font-size: 1.1em;
+    }
+}

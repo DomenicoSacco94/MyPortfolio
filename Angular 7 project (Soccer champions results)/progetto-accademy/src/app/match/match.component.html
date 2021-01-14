@@ -1,0 +1,30 @@
+<div *ngIf="match" class="matchDet">
+  <h3> Dettagli partita </h3>
+      Match: {{match.id}} <br>
+      Stato {{match.status}} <br>
+      <a routerLink="/teamtable/teamdetail/{{match.homeTeamID}}"> {{match.homeTeamName}} </a> contro <a routerLink="/teamtable/teamdetail/{{match.awayTeamID}}"> {{match.awayTeamName}} </a>
+      <br>
+      Stage: {{match.stage}}
+      <br>
+      Data: {{match.utcDate}}
+      <br>
+      Ultimo aggiornamento: {{match.lastUpdated}}
+      <br>
+      Primo tempo: 
+      {{match.homeTeamScoreHalfTime}} - {{match.awayTeamScoreHalfTime}}
+      <br>
+      Secondo tempo: 
+      {{match.homeTeamScore}} - {{match.awayTeamScore}}
+      <br>
+      Rigori {{match.homeTeamName}} : {{match.homeTeamPenalties}} <br>
+      Rigori {{match.awayTeamName}} : {{match.awayTeamPenalties}} <br>
+      ID Team casa: {{match.homeTeamID}}
+      <br>
+      ID Team trasferta: {{match.awayTeamID}}
+      <br>
+      Stadio : {{match.venue}}
+      <br>
+      Stage: {{match.stage}}
+      
+</div>
+

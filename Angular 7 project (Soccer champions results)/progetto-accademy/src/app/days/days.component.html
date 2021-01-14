@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-8 col-sm-12" >
+      <div>
+        <h3 *ngIf="competitionName"> Giornate - {{competitionName}} </h3>
+        <table class="championshipMaster">
+          <tr *ngFor="let day of sortedDays">
+            <td ><a class="mx-2" routerLink="/daystable/daydetail/{{champ}}/{{day.dayOfMatch}}">
+              {{day.dayOfMatch}} º
+            </a> </td>
+            <table class="championship">
+              <tr *ngFor="let matchOfDay of day.matches">
+                <td> <a class="more" routerLink="/matchtable/matchdetail/{{matchOfDay.id}}"> Info </a> </td> <td> {{matchOfDay.utcDate}} </td> <td>{{matchOfDay.homeTeamName}} - {{matchOfDay.awayTeamName}}</td> <td>{{matchOfDay.homeTeamScore}} - {{matchOfDay.awayTeamScore}}</td>
+              </tr>
+            </table>
+          </tr>
+        </table>
+
+        <br>
+        <br>
+        <app-daydetail>
+        </app-daydetail>
+
+      </div>
+    </div>
+
+    <div class="col-md-4 col-sm-12">
+      <app-seasoninfo></app-seasoninfo>
+    </div>
+
+  </div>
+</div>

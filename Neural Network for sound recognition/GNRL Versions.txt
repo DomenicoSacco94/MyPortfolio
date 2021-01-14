@@ -1,0 +1,106 @@
+V1: No lowpass filter and conversion to mono, successful both in 
+external and internal testing.
+
+V2.1: Low pass filter, successful in internal testing but
+not with external samples
+
+V2.2: No lowpass filter and noise tresholding and conversion
+to mono, successful in internal but not in external testing
+
+V2.3: No lowpass filter and noise treshilding, second type mono
+conversion, successful in internal but not in external testing
+
+V2.4 No lowpass filter and noise tresholding (suspended)
+
+V3 Only 2 classes, true or false voice (suspended)
+
+V3.1 Only 2 classes, true or false voice, noise tresholding, mono
+conversion, successful in internal and external testing
+
+V4 Only 2 classes, true or false voice, noise tresholding, only low
+pass frquencies allowed, mono conversion, 
+successful in internal and external testing
+
+V5 Only 2 classes, true or false voice, noise tresholding, only low
+pass frquencies allowed (even narrowed bands), mono conversion, 
+successful in internal and external testing (warning, treshold got
+harder and less evident but is still working)
+
+V6 Only 2 classes, 50 coefficients instead of 20, true or false voice, 
+noise tresholding, only low pass frquencies allowed 
+(even narrowed bands), successful in internal and external testing (warning, treshold got
+harder and less evident but is still working)
+
+V7 Only 2 classes, effective voice tresholding, 
+50 coefficients instead of 20, true or false voice,
+only low pass frquencies allowed 
+(even narrowed bands), successful in internal and external testing
+
+V8 Only 2 classes, effective voice tresholding, 
+50 coefficients instead of 20, true or false voice,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+SOME environmental conditions
+
+V9 Only 2 classes, effective voice tresholding, 
+50 coefficients instead of 20, true or false voice,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+SOME environmental conditions
+A quarter of second samples
+
+V10 Only 2 classes, effective voice tresholding, 
+50 coefficients instead of 20, true or false voice,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+SOME environmental conditions
+Half of second samples
+Non linear frequency evaluation (exponential functions to emphatize differences)
+
+V11 Only 2 classes, effective voice tresholding, 
+ALL COEFFICIENTS INCLUDED, true or false voice,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+SOME environmental conditions
+Twentieth of second samples
+
+V12 Only 2 classes, effective voice tresholding, 
+ALL COEFFICIENTS INCLUDED, true or false voice,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+SOME environmental conditions
+Tenth of second samples
+
+V13 Only 2 classes, effective voice tresholding, 
+ALL COEFFICIENTS INCLUDED, true or false voice,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+SOME environmental conditions
+Eight of second samples
+
+V14 Only 2 classes, effective voice tresholding, 
+ALL COEFFICIENTS INCLUDED, true or false whistle,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+all environmental conditions
+Eight of second samples
+COMMAND AT THE WHISTLE !
+PRE TRAINED NEURAL NETWORK, INSTANT LOADING !
+
+V15 Only 2 classes, effective voice tresholding, 
+ALL COEFFICIENTS INCLUDED, true or false whistle,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+all environmental conditions
+Eight of second samples
+COMMAND AT THE WHISTLE !
+PRE TRAINED NEURAL NETWORK, INSTANT LOADING !
+MORE ACCURACY !

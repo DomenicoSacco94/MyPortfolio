@@ -1,0 +1,50 @@
+<div class=teamDet>
+    <h3> Dettagli Team </h3>
+<div *ngIf="tm">
+    <img *ngIf="tm.crustUrl!='null'" src={{tm.crustUrl}} alt="Imagine team non disponibile" height="100" width="100">
+    <br>
+    Id Squadra: {{tm.idTeam}}
+    <br>
+    Nome squadra: {{tm.name}}
+    <br>
+    Indirizzo squadra: {{tm.address}}
+    <br>
+    Colori squadra: {{tm.clubColor}}
+    <br>
+    URL Stemma: 
+    <br>
+    Mail ufficiale: {{tm.mail}}
+    <br>
+    Anno Fondazione: {{tm.foundedYear}}
+    <br>
+    Telefono: {{tm.phone}}
+    <br>
+    Sigla: {{tm.tla}}
+    <br>
+    Stadio: {{tm.venue}}
+    <br>
+    Sito web ufficiale: <a href={{tm.webSite}}> {{tm.webSite}} </a>
+
+    <!-- Vittorie {{tm.victories}} Sconfitte {{tm.losses}} Pareggi {{tm.draws}} -->
+    <h3> Dettagli giocatori </h3>
+<table>
+    <tr *ngFor="let player of tm.players">
+        <span *ngIf="player.position == null"> Allenatore:  <a routerLink="/teamtable/playerdetail/{{player.id}}"> <span> {{player.name}} </span> </a> </span>
+        <span *ngIf="player.position == 'Goalkeeper'"> <a routerLink="/teamtable/playerdetail/{{player.id}}"> <span> {{player.name}} </span> </a> - Portiere </span>
+        <span *ngIf="player.position == 'Defender'"><a routerLink="/teamtable/playerdetail/{{player.id}}"> <span> {{player.name}} </span> </a> - Difensore </span>
+        <span *ngIf="player.position == 'Midfielder'">  <a routerLink="/teamtable/playerdetail/{{player.id}}"> <span> {{player.name}} </span> </a> - Centrocampista</span>
+        <span *ngIf="player.position == 'Attacker'">  <a routerLink="/teamtable/playerdetail/{{player.id}}"> <span> {{player.name}} </span> </a> - Attaccante</span>
+    </tr>
+</table>
+
+<h3> Match giocati </h3>
+<div>
+    Statistiche in casa: <br>
+    Vittorie: {{victoriesHome}} Pareggi: {{drawsHome}} Sconfitte: {{defeatsHome}} <br> <br>
+    Statistiche in trasferta: <br>
+    Vittorie: {{victoriesAway}} Pareggi: {{drawsAway}} Sconfitte: {{defeatsAway}} <br> <br> <br>
+</div>
+
+</div>
+
+</div>

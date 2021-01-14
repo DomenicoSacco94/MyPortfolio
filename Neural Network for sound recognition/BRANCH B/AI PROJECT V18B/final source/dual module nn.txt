@@ -1,0 +1,398 @@
+#define _CRT_SECURE_NO_DEPRECATE
+#define WINDOW_SIZE 11025
+#define SAMPLE_NUMBERS_FIRST 374
+#define SAMPLE_NUMBERS_SECOND 12
+
+#pragma comment(lib,"winmm.lib")
+#include <Windows.h>
+#include <mmsystem.h>
+#include "opencv2/opencv.hpp"
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include <string>
+#include <complex>
+#include <cassert>
+#include <valarray>
+#include <windows.h> 
+#include "libmfcc.h"
+
+typedef std::complex<double> Complex;
+typedef std::valarray<std::complex<double>> CArray;
+
+using namespace cv;
+using namespace cv::ml;
+using namespace std;
+
+double GetCoefficient(double* spectralData, unsigned int samplingRate, unsigned int NumFilters, unsigned int binSize, unsigned int m)
+{
+	double result = 0.0f;
+	double outerSum = 0.0f;
+	double innerSum = 0.0f;
+	unsigned int k, l;
+
+	// 0 <= m < L
+	if (m >= NumFilters)
+	{
+		// This represents an error condition - the specified coefficient is greater than or equal to the number of filters. The behavior in this case is undefined.
+		return 0.0f;
+	}
+
+	result = NormalizationFactor(NumFilters, m);
+
+
+	for (l = 1; l <= NumFilters; l++)
+	{
+		// Compute inner sum
+		innerSum = 0.0f;
+		for (k = 0; k < binSize - 1; k++)
+		{
+			innerSum += fabs(spectralData[k] * GetFilterParameter(samplingRate, binSize, k, l));
+		}
+
+		if (innerSum > 0.0f)
+		{
+			innerSum = log(innerSum); // The log of 0 is undefined, so don't use it
+		}
+
+		innerSum = innerSum * cos(((m * PI) / NumFilters) * (l - 0.5f));
+
+		outerSum += innerSum;
+	}
+
+	result *= outerSum;
+
+	return result;
+}
+
+/*
+* Computes the Normalization Factor (Equation 6)
+* Used for internal computation only - not to be called directly
+*/
+double NormalizationFactor(int NumFilters, int m)
+{
+	double normalizationFactor = 0.0f;
+
+	if (m == 0)
+	{
+		normalizationFactor = sqrt(1.0f / NumFilters);
+	}
+	else
+	{
+		normalizationFactor = sqrt(2.0f / NumFilters);
+	}
+
+	return normalizationFactor;
+}
+
+/*
+* Compute the filter parameter for the specified frequency and filter bands (Eq. 2)
+* Used for internal computation only - not the be called directly
+*/
+double GetFilterParameter(unsigned int samplingRate, unsigned int binSize, unsigned int frequencyBand, unsigned int filterBand)
+{
+	double filterParameter = 0.0f;
+
+	double boundary = (frequencyBand * samplingRate) / binSize;		// k * Fs / N
+	double prevCenterFrequency = GetCenterFrequency(filterBand - 1);		// fc(l - 1) etc.
+	double thisCenterFrequency = GetCenterFrequency(filterBand);
+	double nextCenterFrequency = GetCenterFrequency(filterBand + 1);
+
+	if (boundary >= 0 && boundary < prevCenterFrequency)
+	{
+		filterParameter = 0.0f;
+	}
+	else if (boundary >= prevCenterFrequency && boundary < thisCenterFrequency)
+	{
+		filterParameter = (boundary - prevCenterFrequency) / (thisCenterFrequency - prevCenterFrequency);
+		filterParameter *= GetMagnitudeFactor(filterBand);
+	}
+	else if (boundary >= thisCenterFrequency && boundary < nextCenterFrequency)
+	{
+		filterParameter = (boundary - nextCenterFrequency) / (thisCenterFrequency - nextCenterFrequency);
+		filterParameter *= GetMagnitudeFactor(filterBand);
+	}
+	else if (boundary >= nextCenterFrequency && boundary < samplingRate)
+	{
+		filterParameter = 0.0f;
+	}
+
+	return filterParameter;
+}
+
+/*
+* Compute the band-dependent magnitude factor for the given filter band (Eq. 3)
+* Used for internal computation only - not the be called directly
+*/
+double GetMagnitudeFactor(unsigned int filterBand)
+{
+	double magnitudeFactor = 0.0f;
+
+	if (filterBand >= 1 && filterBand <= 14)
+	{
+		magnitudeFactor = 0.015;
+	}
+	else if (filterBand >= 15 && filterBand <= 48)
+	{
+		magnitudeFactor = 2.0f / (GetCenterFrequency(filterBand + 1) - GetCenterFrequency(filterBand - 1));
+	}
+
+	return magnitudeFactor;
+}
+
+/*
+* Compute the center frequency (fc) of the specified filter band (l) (Eq. 4)
+* This where the mel-frequency scaling occurs. Filters are specified so that their
+* center frequencies are equally spaced on the mel scale
+* Used for internal computation only - not the be called directly
+*/
+double GetCenterFrequency(unsigned int filterBand)
+{
+	double centerFrequency = 0.0f;
+	double exponent;
+
+	if (filterBand == 0)
+	{
+		centerFrequency = 0;
+	}
+	else if (filterBand >= 1 && filterBand <= 14)
+	{
+		centerFrequency = (200.0f * filterBand) / 3.0f;
+	}
+	else
+	{
+		exponent = filterBand - 14.0f;
+		centerFrequency = pow(1.0711703, exponent);
+		centerFrequency *= 1073.4;
+	}
+
+	return centerFrequency;
+}
+
+double* to_mono(double* x) {
+	double* p_w = new double[WINDOW_SIZE / 2];
+	memset(p_w, 0, sizeof(double) * WINDOW_SIZE / 2);
+	for (int i = 0; i < WINDOW_SIZE / 2; i = i + 2) {
+		p_w[i] = (x[i] / 2 + x[i + 1] / 2)*2;
+	}
+	return p_w;
+}
+
+int calc_average_value(CArray data, int start, int end, int norm)
+{
+	long average = 0;
+	long position = 0;
+
+	for (int y = start; y < end; y++) {
+		if (abs(data[y]) > average) { average = abs(data[y]); position = y; }
+	}
+
+	//cout << average << endl;
+	return int(position);
+}
+
+int calc_intensity_value(CArray data, int start, int end, int norm)
+{
+	long average = 0;
+	long position = 0;
+
+	for (int y = start; y < end; y++) {
+		average += abs(data[y]);
+	}
+
+	//cout << average << endl;
+	return int(average);
+}
+
+double* acquire_mic()
+{
+	// Fill the WAVEFORMATEX struct to indicate the format of our recorded audio
+	//   For this example we'll use "CD quality", ie:  44100 Hz, stereo, 16-bit
+	WAVEFORMATEX wfx = {};
+	wfx.wFormatTag = WAVE_FORMAT_PCM;       // PCM is standard
+	wfx.nChannels = 2;                      // 2 channels = stereo sound
+	wfx.nSamplesPerSec = 44100;             // Samplerate.  44100 Hz
+	wfx.wBitsPerSample = 16;                // 16 bit samples
+											// These others are computations:
+	wfx.nBlockAlign = wfx.wBitsPerSample * wfx.nChannels / 8;
+	wfx.nAvgBytesPerSec = wfx.nBlockAlign * wfx.nSamplesPerSec;
+
+
+	// Open our 'waveIn' recording device
+	HWAVEIN wi;
+	waveInOpen(&wi,            // fill our 'wi' handle
+		WAVE_MAPPER,    // use default device (easiest)
+		&wfx,           // tell it our format
+		NULL, NULL,      // we don't need a callback for this example
+		CALLBACK_NULL | WAVE_FORMAT_DIRECT   // tell it we do not need a callback
+	);
+
+	// At this point, we have our device, now we need to give it buffers (with headers) that it can
+	//  put the recorded audio somewhere
+	char buffers[WINDOW_SIZE * 2 * 2 / 2];    // 1 buffer, half of a second long
+	WAVEHDR headers[1] = { {} };           // initialize to zeros
+	headers[0].lpData = buffers;             // give it a pointer to our buffer
+	headers[0].dwBufferLength = WINDOW_SIZE * 2 * 2 / 2;      // tell it the size of that buffer in bytes
+															  // the other parts of the header we don't really care about for this example, and can be left at zero
+
+															  // Prepare each header
+	waveInPrepareHeader(wi, &headers[0], sizeof(headers[0]));
+
+	// And add it to the queue
+	//  Once we start recording, queued buffers will get filled with audio data
+	waveInAddBuffer(wi, &headers[0], sizeof(headers[0]));
+
+	// start recording!
+	waveInStart(wi);
+
+	// Now that we are recording, keep polling our buffers to see if they have been filled.
+	//   If they have been, dump their contents to the file and re-add them to the queue so they
+	//   can get filled again, and again, and again
+
+	double *samples = new double[WINDOW_SIZE];
+	memset(samples, 0, sizeof(double) * WINDOW_SIZE);
+	int cont = 0;
+	while (cont<1)  // keep looping until the user hits escape
+	{
+		for (auto& h : headers)      // check each header
+		{
+			if (h.dwFlags & WHDR_DONE)           // is this header done?
+			{
+				// if yes, dump it to our file
+				for (int y = 0; y < WINDOW_SIZE * 2 * 2 / 2; y = y + 2) {
+					samples[y / 2] = (buffers[y + 1] << 8) | (buffers[y] & 0xff);
+				}
+
+				// then re-add it to the queue
+				h.dwFlags = 0;          // clear the 'done' flag
+				h.dwBytesRecorded = 0;  // tell it no bytes have been recorded
+
+										// re-add it  (I don't know why you need to prepare it again though...)
+				waveInPrepareHeader(wi, &h, sizeof(h));
+				waveInAddBuffer(wi, &h, sizeof(h));
+				cont++;
+			}
+		}
+	}
+
+	// Once the user hits escape, stop recording, and clean up
+	waveInStop(wi);
+	for (auto& h : headers)
+	{
+		waveInUnprepareHeader(wi, &h, sizeof(h));
+	}
+	waveInClose(wi);
+
+	// All done!
+
+	return samples;
+}
+
+void fft(CArray& x)
+{
+	const size_t N = x.size();
+	if (N <= 1) return;
+
+	// divide
+	CArray even = x[std::slice(0, N / 2, 2)];
+	CArray  odd = x[std::slice(1, N / 2, 2)];
+
+	// conquer
+	fft(even);
+	fft(odd);
+
+	// combine
+	for (size_t k = 0; k < N / 2; ++k)
+	{
+		std::complex<double> t = std::polar(1.0, -2 * PI * k / N) * odd[k];
+		x[k] = even[k] + t;
+		x[k + N / 2] = even[k] - t;
+	}
+}
+
+int main()
+{
+
+	Mat to_predict_first(1, SAMPLE_NUMBERS_FIRST, CV_32F);
+	Mat to_predict_second(1, SAMPLE_NUMBERS_SECOND, CV_32F);
+	Mat predicted_outcome_first(1, 1, CV_32F); //predicted for external outcome
+	Mat predicted_outcome_second(1, 1, CV_32F); //predicted for external outcome
+	double *window = new double[WINDOW_SIZE];
+	double* processed_window = new double[WINDOW_SIZE / 2];
+	double* spect = new double[WINDOW_SIZE / 2];
+	std::complex<double> com_window[WINDOW_SIZE / 2];
+
+	Ptr<ANN_MLP> nn_first, nn_second;
+
+	nn_first = StatModel::load<ANN_MLP>("nn_first.dat");
+	nn_second = StatModel::load<ANN_MLP>("nn_second.dat");
+
+	cout << "MODELS LOADED" << endl;
+
+	for (int i = 0; i >= 0; i++) {
+
+		memset(window, 0, sizeof(double) * WINDOW_SIZE / 2);
+		memset(processed_window, 0, sizeof(double) * WINDOW_SIZE / 2);
+		memset(spect, 0, sizeof(double) * WINDOW_SIZE / 2);
+		//Reading data
+		//short int average = calc_average(value, samples_count);
+		int total_windows = 1;
+
+		for (int i = 0; i < total_windows; i++)
+		{
+			int k = 0;
+
+			window = acquire_mic();
+
+			//window = l_p(window,1);
+
+			processed_window = to_mono(window);
+
+			for (int j = 0; j < WINDOW_SIZE / 2; j++)
+			{
+				com_window[j] = processed_window[j];
+			}
+
+			CArray data(com_window, WINDOW_SIZE / 2);
+
+			fft(data);
+
+			int count = 0;
+
+			for (int u = 0; u < WINDOW_SIZE / 16; u = u + 2) {
+				to_predict_first.at<float>(0, count) = float(int(abs(data[u]) / 100));
+				count++;
+			}
+
+			for (int u = WINDOW_SIZE / 16; u < WINDOW_SIZE / 4; u = int(float(u*1.05))) {
+				to_predict_first.at<float>(0, count) = float(int(abs(data[u]) / 100));
+				count++;
+			}
+
+
+
+			double coff[SAMPLE_NUMBERS_SECOND];
+
+			for (int y = 0; y < SAMPLE_NUMBERS_SECOND; y++) {
+				coff[y] = GetCoefficient(processed_window, 44100, 13, 128, y+1);
+				//cout << coff[y]*1000 << " ";
+				to_predict_second.at<float>(0, y) = 1000-coff[y] * 1000;
+			}
+
+		}
+
+		nn_first->predict(to_predict_first, predicted_outcome_first);
+
+
+		if (predicted_outcome_first.at<float>(0, 0) > 0) {
+			nn_second->predict(to_predict_second, predicted_outcome_second);
+			cout << predicted_outcome_second.at<float>(0, 0) << endl;
+		}
+
+		else { cout << "No human voice: " << predicted_outcome_first.at<float>(0, 0) << endl; }
+
+	}
+} // main

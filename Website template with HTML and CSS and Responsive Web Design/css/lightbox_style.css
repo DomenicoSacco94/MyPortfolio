@@ -1,0 +1,519 @@
+/* GENERIC STYLING ELEMENTS FOR LIGHTBOXES */
+
+.close_button {
+    position:absolute;
+    top: 5%;
+    right:7%;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+
+close_button:visited 
+{
+    color: black;
+}
+
+.lightbox {
+    visibility: hidden;
+    background: white;
+    position: absolute;
+    border: 2px solid #3c3c3c;
+    color: black;
+    z-index: 100;
+    padding: 20px;
+    border-radius: 25px;
+    display: none;
+    font-family: Arial;
+}
+
+#register_lightbox:target {
+    display: block;
+    visibility: visible;
+    position: fixed;
+    top: 10%;
+    left: 35%;
+    z-index: 2;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+#login_lightbox:target {
+    display: block;
+    visibility: visible;
+    position: fixed;
+    top: 10%;
+    left: 40%;
+    z-index: 2;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+#forgotpass_lightbox:target {
+    display: block;
+    visibility: visible;
+    position: fixed;
+    top: 10%;
+    left: 40%;
+    z-index: 2;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+#payment_lightbox:target {
+    display: block;
+    visibility: visible;
+    position: fixed;
+    top: 10%;
+    left: 30%;
+    z-index: 2;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+.lightbox_link {
+    color: blue;
+    font-weight: bold;
+    text-decoration: none;
+    font-size:0.8em;
+}
+
+.input_description {
+    font-weight: bolder;
+    float: left;
+    text-indent: 20px;
+}
+
+.input_text {
+    margin-top:10px;
+    margin-bottom:30px;
+    color: grey;
+    text-indent: 10px;
+    border:2px solid black;
+    font-size: 0.9em;
+    height: 30px;
+    width: 250px;
+}
+
+/* LOGIN LIGHTBOX STYLING */
+
+#login_lightbox{
+    visibility: hidden;
+    width: 300px;
+    height: 340px;
+    padding: 20px;
+}
+
+.window_form {
+    text-align: center;
+    font-size: 1.1em;
+    margin-top: 20px;
+}
+
+.submit_button {
+    width: 200px;
+    height: 50px;
+    margin-top:10px;
+    margin-bottom: 20px;
+    background:blue;
+    border:2px solid blue;
+    color: white;
+    font-weight: bolder;
+    font-size: 1.1em;
+}
+
+/*  REGISTER LIGHTBOX STYLING */
+
+#register_lightbox{
+    width: 500px;
+    height: 400px;
+}
+
+.inlineinput {
+    display: inline;
+}
+
+.same_line_form {
+    margin-top:10px;
+    margin-bottom: 15px;
+    color: grey;
+    text-indent: 10px;
+    border:2px solid black;
+    font-size: 0.9em;
+    height: 30px;
+    width: 200px;
+}
+
+.input_description_same_line {
+    display: inline;
+    font-weight: bolder;
+}
+
+#first_name_desc {
+    margin-left:45px;
+    float:left;
+}
+
+#last_name_desc {
+    margin-right:160px;
+    float:right;
+}
+
+#mail_address_field {
+    margin-left: 25px;
+}
+
+#mail_address_box {
+    margin-bottom: 15px;
+    width: 400px;
+}
+
+#password_name_desc {
+    margin-left:45px;
+    float:left;
+}
+
+#confirm_name_desc {
+    margin-right:95px;
+    float:right;
+}
+
+#register_sub{
+    width: 400px;
+}
+
+/*FORGOTPASS LIGHTBOX STYLING */
+
+#forgotpass_lightbox{
+    width: 300px;
+    height: 340px;
+}
+
+#forgotpass_lightbox h2{
+    font-weight: bolder;
+}
+
+#forgotpass_lightbox span{
+    margin-top: 5px;
+    font-weight: normal;
+}
+
+#forgotpass_lightbox .input_text{
+    margin-top: 25px;
+    margin-bottom: 10px;
+    width: 300px;
+}
+
+
+#forgotpass_lightbox .submit_button {
+    width: 300px;
+}
+
+/* PAYMENT LIGHTBOX STYLING */
+
+#payment_lightbox {
+    width: 500px;
+    height: 250px;
+    float: right;
+    font-weight: bold;
+}
+
+#ccn_input{
+    margin-bottom: 0px;  
+} 
+
+#month_input{
+    width: 35px;
+    text-indent: 5px;
+    margin-bottom: 0px;
+}
+
+#year_input {
+    width: 35px;
+    text-indent: 5px;
+    margin-bottom: 0px;
+}
+
+#cvv_input {
+    width: 35px;
+    text-indent: 5px;
+    margin-bottom: 0px;
+}
+
+#payment_sub {
+    width:300px;
+    font-weight: normal;
+}
+
+#next_button {
+    background: blue;
+}
+
+/* POP-UP ANIMATIONS */
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}
+
+/* POP-UP HANDLING */
+
+@media only screen and (max-width: 1024px) {
+    
+#login_lightbox:target {
+    top: 10%;
+    left: 10%;
+}
+
+#register_lightbox:target {
+    top: 10%;
+    left: 10%;
+}
+
+#payment_lightbox:target {
+    top: 10%;
+    left: 10%;
+}
+
+#forgotpass_lightbox:target {
+    top: 10%;
+    left: 10%;
+}
+}
+
+@media only screen and (max-width: 768px), screen and (max-height: 576px) {
+
+.lightbox {
+    border: 1px solid #3c3c3c;
+    z-index: 100;
+    padding: 15px;
+    border-radius: 18px;
+}
+
+#register_lightbox:target {
+    display: block;
+    visibility: visible;
+    position: fixed;
+    top: 10%;
+    left: 35%;
+    z-index: 2;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+#login_lightbox:target {
+    display: block;
+    visibility: visible;
+    position: fixed;
+    top: 10%;
+    left: 40%;
+    z-index: 2;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+#forgotpass_lightbox:target {
+    display: block;
+    visibility: visible;
+    position: fixed;
+    top: 10%;
+    left: 40%;
+    z-index: 2;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+#payment_lightbox:target {
+    display: block;
+    visibility: visible;
+    position: fixed;
+    top: 10%;
+    left: 30%;
+    z-index: 2;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+#payment_lightbox {
+    width: 375px;
+    height: 188px;
+}
+
+#month_input{
+    width: 26px;
+    text-indent: 3px;
+}
+
+#year_input {
+    width: 26px;
+    text-indent: 3px;
+}
+
+#cvv_input {
+    width: 26px;
+    text-indent: 3px;
+}
+
+#payment_sub {
+    width:225px;
+}
+
+.lightbox_link {
+    font-size:0.6em;
+}
+
+.input_description {
+    font-weight: bolder;
+    float: left;
+    text-indent: 15px;
+}
+
+.input_text {
+    margin-top:7px;
+    margin-bottom:22px;
+    color: grey;
+    text-indent: 7px;
+    border:1px solid black;
+    font-size: 0.6em;
+    height: 22px;
+    width: 200px;
+}
+
+#login_lightbox{
+    width: 225px;
+    height: 250px;
+    padding: 15px;
+}
+
+.window_form {
+    font-size: 0.9em;
+    margin-top: 15px;
+}
+
+.submit_button {
+    width: 150px;
+    height: 37px;
+    margin-top: 7px;
+    margin-bottom: 15px;
+    border:1px solid blue;
+    font-size: 0.9em;
+}
+
+#login_lightbox:target {
+    top: 5%;
+    left: 5%;
+}
+
+#register_lightbox:target {
+    top: 5%;
+    left: 5%;
+}
+
+#forgotpass_lightbox{
+    width: 225px;
+    height: 255px;
+}
+
+#forgotpass_lightbox span{
+    margin-top: 3px;
+}
+
+#forgotpass_lightbox .input_text{
+    margin-top: 19px;
+    margin-bottom: 7px;
+    width: 225px;
+}
+
+
+#forgotpass_lightbox .submit_button {
+    width: 225px;
+}
+
+#register_lightbox{
+    width: 375px;
+    height: 300px;
+}
+
+.inlineinput {
+    display: inline;
+}
+
+.same_line_form {
+    margin-top:7px;
+    margin-bottom: 11px;
+    color: grey;
+    text-indent: 7px;
+    border:2px solid black;
+    font-size: 0.9em;
+    height: 23px;
+    width: 150px;
+}
+
+.input_description_same_line {
+    display: inline;
+    font-weight: bolder;
+}
+
+#first_name_desc {
+    margin-left:30px;
+    float:left;
+}
+
+#last_name_desc {
+    margin-right:112px;
+    float:right;
+}
+
+#mail_address_field {
+    margin-left: 21px;
+}
+
+#mail_address_box {
+    margin-bottom: 11px;
+    width: 300px;
+    margin-left:0;
+    font-size:0.6em;
+    border: 2px solid black;
+}
+
+#password_name_desc {
+    margin-left:30px;
+    float:left;
+}
+
+#confirm_name_desc {
+    margin-right:60px;
+    float:right;
+}
+
+#register_sub{
+    width: 300px;
+}
+
+#payment_lightbox:target {
+    top: 5%;
+    left: 5%;
+}
+
+#forgotpass_lightbox:target {
+    top: 5%;
+    left: 5%;
+}
+}
+
+/* LIGHTBOX OPENING ANIMATIONS */
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+}

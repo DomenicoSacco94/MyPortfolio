@@ -1,0 +1,9 @@
+<div *ngIf="season" class="seasonTab">
+  <h3> Classifica - {{season.name}}</h3>
+  <table class="seasoninfo">
+    <tr><th> Stemma </th> <th> Nome </th> <th> Pos </th> <th> Pt </th><th> V </th><th> P</th><th> S </th></tr>
+    <tr *ngFor="let position of season.classification">
+     <td> <img *ngIf="position.teamCrestUrl" src={{position.teamCrestUrl}} alt="X" width="20" height="20"> </td> <td> <a routerLink="/teamtable/teamdetail/{{position.teamID}}" target="_blank"> {{position.teamName}} </a> </td> <td> {{position.position}}º </td> <td>{{position.points}}</td> <td>{{position.won}} </td> <td>{{position.draw}} </td> <td>{{position.lost}} </td>
+    </tr>
+  </table>
+</div>

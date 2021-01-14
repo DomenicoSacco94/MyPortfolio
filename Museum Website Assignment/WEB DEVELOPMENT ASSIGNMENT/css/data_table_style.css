@@ -1,0 +1,250 @@
+.line_description {
+ font-weight: bold;   
+ margin-left:5px;
+ margin-right:5px;
+}
+
+.work_image {
+    border: 1px solid black;
+    width:170px;
+}
+
+.artist_image {
+    border: 1px solid black;
+    width:170px;
+}
+
+.event_image {
+    border: 1px solid black;
+    width:170px;
+}
+
+.museum_image {
+    border: 1px solid black;
+    width:170px;
+}
+
+.room_image {
+    border: 1px solid black;
+    width:170px;
+}
+
+.museum_table {
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: center;
+    color:white;
+    background: #A22;
+}
+
+.work_table {
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: center;
+    color:white;
+    background: #A22;
+}
+
+.event_table {
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: center;
+    color:white;
+    background: #A22;
+}
+
+.user_table {
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: center;
+    color:white;
+    background: #A22;
+}
+
+.ticket_table {
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: center;
+    color:white;
+    background: #A22;
+}
+
+.room_table {
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: center;
+    color:white;
+    background: #A22;
+}
+
+.events_artists_table {
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: center;
+    color:white;
+    background: #A22;
+}
+
+.works_artists_table {
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: center;
+    color:white;
+    background: #A22;
+}
+
+.artist_table {
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: center;
+    color:white;
+    background: #A22;
+}
+
+.visitor_table {
+    margin-left:auto; 
+    margin-right:auto;
+    text-align: center;
+    color:white;
+    background: #A22;
+}
+
+.work_table td,th{
+    border: 1px solid black;
+}
+
+.user_table td,th{
+    border: 1px solid black;
+}
+
+.ticket_table td,th{
+    border: 1px solid black;
+}
+
+.room_table td,th{
+    border: 1px solid black;
+}
+
+.artist_table td,th{
+    border: 1px solid black;
+}
+
+.event_table td,th {
+    border: 1px solid black; 
+}
+
+.museum_table td,th{
+    border: 1px solid black; 
+}
+
+.visitor_table td,th {
+    border: 1px solid black; 
+}
+
+@media only screen and (max-width: 1280px) {
+  .work_image {
+    border: 1px solid black;
+    width:125px;
+}
+
+.artist_image {
+    border: 1px solid black;
+    width:125px;
+}
+
+.event_image {
+    border: 1px solid black;
+    width:125px;
+}
+
+.museum_image {
+    border: 1px solid black;
+    width:125px;
+}
+
+.room_image {
+    border: 1px solid black;
+    width:125px;
+}  
+}
+
+@media only screen and (max-width: 1024px) {
+   .work_image {
+    border: 1px solid black;
+    width:100px;
+}
+
+.artist_image {
+    border: 1px solid black;
+    width:100px;
+}
+
+.event_image {
+    border: 1px solid black;
+    width:100px;
+}
+
+.museum_image {
+    border: 1px solid black;
+    width:100px;
+}
+
+.room_image {
+    border: 1px solid black;
+    width:100px;
+} 
+}
+
+@media only screen and (max-width: 768px) {
+   .work_image {
+    border: 1px solid black;
+    width:75px;
+}
+
+.artist_image {
+    border: 1px solid black;
+    width:75px;
+}
+
+.event_image {
+    border: 1px solid black;
+    width:75px;
+}
+
+.museum_image {
+    border: 1px solid black;
+    width:75px;
+}
+
+.room_image {
+    border: 1px solid black;
+    width:75px;
+} 
+}
+
+@media only screen and (max-width: 600px) {
+   .work_image {
+    border: 1px solid black;
+    width:60px;
+}
+
+.artist_image {
+    border: 1px solid black;
+    width:60px;
+}
+
+.event_image {
+    border: 1px solid black;
+    width:60px;
+}
+
+.museum_image {
+    border: 1px solid black;
+    width:60px;
+}
+
+.room_image {
+    border: 1px solid black;
+    width:60px;
+} 
+}

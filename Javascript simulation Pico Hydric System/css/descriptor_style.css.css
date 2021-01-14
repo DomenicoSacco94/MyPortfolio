@@ -1,0 +1,105 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 2, 2018, 12:15:28 PM
+    Author     : domis
+*/
+
+#descriptor {
+    width: 400px;
+    height: 170px;
+    border: 2px solid black;  
+    font-size: 1.2em;
+    font-family: "Times New Roman";
+    margin: 5px;
+    margin-left: 80px;
+    float: left;
+}
+
+#descriptor h2{
+    margin-bottom: 10px;
+    font-family: "Arial";
+}
+
+#image_description {
+    border: 2px solid black;  
+    margin: 5px;
+    width: 100px;
+    height: 155px;
+    float: left;
+}
+
+@media (max-width: 1280px) {
+    
+    #descriptor {
+    width: 360px;
+    height: 155px;
+    font-size: 1.1em;
+    margin: 2px;
+    margin-left: 60px;
+    }
+
+    #descriptor h2{
+    margin-bottom: 10px;
+    font-size: 1.8em;
+    }
+
+    #image_description {
+    margin: 5px;
+    width: 80px;
+    height: 140px;
+    }
+    
+}
+
+@media (max-width: 1152px) {
+    
+    #descriptor {
+    width: 320px;
+    height: 135px;
+    font-size: 1em;
+    margin: 2px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+    }
+
+    #descriptor h2{
+    margin-bottom: 10px;
+    font-size: 1.7em;
+    margin-right: 5px;
+    }
+
+    #image_description {
+    margin: 5px;
+    width: 70px;
+    height: 120px;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    
+    #descriptor {
+    width: 200px;
+    height: 90px;
+    font-size: 0.6em;
+    margin: 2px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+    }
+
+    #descriptor h2{
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    margin-right: 5px;
+    }
+
+    #image_description {
+    margin: 5px;
+    width: 50px;
+    height: 80px;
+    }
+}

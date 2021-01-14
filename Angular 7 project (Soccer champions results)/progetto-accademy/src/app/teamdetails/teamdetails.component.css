@@ -1,0 +1,23 @@
+tr {
+    border: 1px solid black;
+}
+
+a {
+color: white;
+text-decoration: underline;
+}
+
+.teamDet {
+    color: white;
+    background-color: green;
+    margin-bottom: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+    border: 1px solid black;
+}
+
+h3 {
+    text-align: center;
+}

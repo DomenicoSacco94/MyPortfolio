@@ -1,0 +1,63 @@
+---BRANCH B---
+
+Vocal recognition with a neural network, real time vocal analysis
+and limited efficiency with verified set
+
+----------------------------------------------------------------------
+
+V8 Only 2 classes, effective voice tresholding, 
+50 coefficients instead of 20, true or false voice,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+SOME environmental conditions
+
+V9 Only 2 classes, effective voice tresholding, 
+50 coefficients instead of 20, true or false voice,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+SOME environmental conditions
+A quarter of second samples
+
+V10 Only 2 classes, effective voice tresholding, 
+50 coefficients instead of 20, true or false voice,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+SOME environmental conditions
+Half of second samples
+Non linear frequency evaluation (exponential functions to emphatize differences)
+
+V11 Only 2 classes, effective voice tresholding, 
+ALL COEFFICIENTS INCLUDED, true or false voice,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+SOME environmental conditions
+Twentieth of second samples
+
+V12 Only 2 classes, effective voice tresholding, 
+ALL COEFFICIENTS INCLUDED, true or false voice,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+SOME environmental conditions
+Tenth of second samples
+
+V13 Only 2 classes, effective voice tresholding, 
+ALL COEFFICIENTS INCLUDED, true or false voice,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+SOME environmental conditions
+Eight of second samples
+
+
+V14 Only 2 classes, effective voice tresholding, 
+ALL COEFFICIENTS INCLUDED, true or false voice,
+only low pass frquencies allowed 
+(even narrowed bands)
+REAL TIME CONTROL FUNCTION, successful on internal test set and in
+SOME environmental conditions and better results in external testing
+Eight of second samples

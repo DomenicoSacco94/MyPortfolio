@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily">
+  <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DataSource1">
+      <ConnectionProperties>
+        <DataProvider>OLEDB-MD</DataProvider>
+        <ConnectString>Data Source=PMATOS-SAD0;Initial Catalog="Thiago Domenico Second Assignment"</ConnectString>
+        <IntegratedSecurity>true</IntegratedSecurity>
+      </ConnectionProperties>
+      <rd:SecurityType>Integrated</rd:SecurityType>
+      <rd:DataSourceID>53a87730-fd0c-498f-8d36-6f00b55dec8f</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="Months">
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <CommandText> SELECT { } ON COLUMNS, { ([Dim Time].[Month].[Month].ALLMEMBERS ) } DIMENSION PROPERTIES MEMBER_CAPTION, MEMBER_UNIQUE_NAME ON ROWS FROM ( SELECT ( { [Dim Time].[Month].[All] } ) ON COLUMNS FROM [Our Work]) CELL PROPERTIES VALUE</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="ID__xml_version__1_0__encoding__utf_8____Field_xmlns_xsi__http___www_w3_org_2001_XMLSchema_instance__xmlns_xsd__http___www_w3_org_2001_XMLSchema__xsi_type__Level__UniqueName___Dim_Time___Month___Month_____">
+          <DataField>&lt;?xml version="1.0" encoding="utf-8"?&gt;&lt;Field xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xsi:type="Level" UniqueName="[Dim Time].[Month].[Month]" /&gt;</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Tablix Name="Tablix1">
+            <TablixCorner>
+              <TablixCornerRows>
+                <TablixCornerRow>
+                  <TablixCornerCell>
+                    <CellContents>
+                      <Textbox Name="Textbox4">
+                        <CanGrow>true</CanGrow>
+                        <UserSort>
+                          <SortExpression>Int(=Fields!ID__xml_version__1_0__encoding__utf_8____Field_xmlns_xsi__http___www_w3_org_2001_XMLSchema_instance__xmlns_xsd__http___www_w3_org_2001_XMLSchema__xsi_type__Level__UniqueName___Dim_Time___Month___Month_____.Value)</SortExpression>
+                        </UserSort>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>Months</Value>
+                                <Style />
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox4</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixCornerCell>
+                </TablixCornerRow>
+              </TablixCornerRows>
+            </TablixCorner>
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>2.5cm</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="ID__xml_version__1_0__encoding__utf_8____Field_xmlns_xsi__http___www_w3_org_2001_XMLSchema_instance__xmlns_xsd__http___www_w3_org_2001_XMLSchema__xsi_type__Level__UniqueName___Dim_Time___Month___Month_____1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!ID__xml_version__1_0__encoding__utf_8____Field_xmlns_xsi__http___www_w3_org_2001_XMLSchema_instance__xmlns_xsd__http___www_w3_org_2001_XMLSchema__xsi_type__Level__UniqueName___Dim_Time___Month___Month_____.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>ID__xml_version__1_0__encoding__utf_8____Field_xmlns_xsi__http___www_w3_org_2001_XMLSchema_instance__xmlns_xsd__http___www_w3_org_2001_XMLSchema__xsi_type__Level__UniqueName___Dim_Time___Month___Month_____1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <Group Name="ColumnGroup">
+                    <GroupExpressions>
+                      <GroupExpression />
+                    </GroupExpressions>
+                  </Group>
+                  <TablixHeader>
+                    <Size>0.6cm</Size>
+                    <CellContents>
+                      <Textbox Name="Textbox2">
+                        <CanGrow>true</CanGrow>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>ID x</Value>
+                                <Style />
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>Textbox2</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <Group Name="ID__xml_version__1_0__encoding__utf_8____Field_xmlns_xsi__http___www_w3_org_2001_XMLSchema_instance__xmlns_xsd__http___www_w3_org_2001_XMLSchema__xsi_type__Level__UniqueName___Dim_Time___Month___Month_____">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!ID__xml_version__1_0__encoding__utf_8____Field_xmlns_xsi__http___www_w3_org_2001_XMLSchema_instance__xmlns_xsd__http___www_w3_org_2001_XMLSchema__xsi_type__Level__UniqueName___Dim_Time___Month___Month_____.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!ID__xml_version__1_0__encoding__utf_8____Field_xmlns_xsi__http___www_w3_org_2001_XMLSchema_instance__xmlns_xsd__http___www_w3_org_2001_XMLSchema__xsi_type__Level__UniqueName___Dim_Time___Month___Month_____.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <TablixHeader>
+                    <Size>2.5cm</Size>
+                    <CellContents>
+                      <Textbox Name="ID__xml_version__1_0__encoding__utf_8____Field_xmlns_xsi__http___www_w3_org_2001_XMLSchema_instance__xmlns_xsd__http___www_w3_org_2001_XMLSchema__xsi_type__Level__UniqueName___Dim_Time___Month___Month_____">
+                        <CanGrow>true</CanGrow>
+                        <UserSort>
+                          <SortExpression>Int(=Fields!ID__xml_version__1_0__encoding__utf_8____Field_xmlns_xsi__http___www_w3_org_2001_XMLSchema_instance__xmlns_xsd__http___www_w3_org_2001_XMLSchema__xsi_type__Level__UniqueName___Dim_Time___Month___Month_____.Value)</SortExpression>
+                          <SortTarget>Months</SortTarget>
+                        </UserSort>
+                        <KeepTogether>true</KeepTogether>
+                        <Paragraphs>
+                          <Paragraph>
+                            <TextRuns>
+                              <TextRun>
+                                <Value>=Fields!ID__xml_version__1_0__encoding__utf_8____Field_xmlns_xsi__http___www_w3_org_2001_XMLSchema_instance__xmlns_xsd__http___www_w3_org_2001_XMLSchema__xsi_type__Level__UniqueName___Dim_Time___Month___Month_____.Value</Value>
+                                <Style />
+                              </TextRun>
+                            </TextRuns>
+                            <Style />
+                          </Paragraph>
+                        </Paragraphs>
+                        <rd:DefaultName>ID__xml_version__1_0__encoding__utf_8____Field_xmlns_xsi__http___www_w3_org_2001_XMLSchema_instance__xmlns_xsd__http___www_w3_org_2001_XMLSchema__xsi_type__Level__UniqueName___Dim_Time___Month___Month_____</rd:DefaultName>
+                        <Style>
+                          <Border>
+                            <Color>LightGrey</Color>
+                            <Style>Solid</Style>
+                          </Border>
+                          <PaddingLeft>2pt</PaddingLeft>
+                          <PaddingRight>2pt</PaddingRight>
+                          <PaddingTop>2pt</PaddingTop>
+                          <PaddingBottom>2pt</PaddingBottom>
+                        </Style>
+                      </Textbox>
+                    </CellContents>
+                  </TablixHeader>
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>Months</DataSetName>
+            <SortExpressions>
+              <SortExpression>
+                <Value>Int(=Fields!ID__xml_version__1_0__encoding__utf_8____Field_xmlns_xsi__http___www_w3_org_2001_XMLSchema_instance__xmlns_xsd__http___www_w3_org_2001_XMLSchema__xsi_type__Level__UniqueName___Dim_Time___Month___Month_____.Value)</Value>
+              </SortExpression>
+            </SortExpressions>
+            <Top>2.00766cm</Top>
+            <Left>1.6637cm</Left>
+            <Height>1.2cm</Height>
+            <Width>5cm</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Tablix>
+        </ReportItems>
+        <Height>2in</Height>
+        <Style />
+      </Body>
+      <Width>6.5in</Width>
+      <Page>
+        <PageHeight>29.7cm</PageHeight>
+        <PageWidth>21cm</PageWidth>
+        <LeftMargin>2cm</LeftMargin>
+        <RightMargin>2cm</RightMargin>
+        <TopMargin>2cm</TopMargin>
+        <BottomMargin>2cm</BottomMargin>
+        <ColumnSpacing>0.13cm</ColumnSpacing>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>73e7e5e0-8cbb-4feb-8568-4c6a4e2aa214</rd:ReportID>
+</Report>

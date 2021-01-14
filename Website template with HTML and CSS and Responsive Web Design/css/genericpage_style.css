@@ -1,0 +1,39 @@
+/* GENERIC LAYOUT STYILING FOR THE MAIN COMPONENT OF THE HTML PAGE */
+
+main {
+   background: lightskyblue; 
+   font-family: Times New Roman;
+   width: 100%;
+}
+
+.page_title {
+    text-align: center;
+    font-weight: bold;
+    background: lightskyblue;
+    color: black;
+    height: border-box;
+    margin-top: 20px;
+    font-size: 2em;
+    font-family: Arial;
+}
+
+@media only screen and (max-width: 1024px) {
+    .page_title {
+    font-size: 1.9em;  
+    margin-top: 15px;
+    }
+    
+    main {
+    font-size: 0.9em;    
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .page_title {
+    font-size: 1.8em;  
+    }
+    
+    main {
+    font-size: 0.8em;    
+    }
+}

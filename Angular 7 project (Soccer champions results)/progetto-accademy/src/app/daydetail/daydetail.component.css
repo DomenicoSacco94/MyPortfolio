@@ -1,0 +1,29 @@
+a {
+    color: white;
+    text-decoration: underline;
+    }
+
+table {
+    width:100%;
+    margin-bottom: 40px;
+}
+
+.more {
+    margin-left: 10px;
+    margin-right: 10px;
+    font-weight: bolder;
+}
+
+table td{
+    border: 1px solid black;
+    background-color: green;
+    color:white;
+    text-align: center;
+    
+}
+
+table tr{
+    border: 1px solid black;
+    background-color: white;
+    color:black;
+}

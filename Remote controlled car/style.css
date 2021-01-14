@@ -1,0 +1,28 @@
+       input[type="range"]#slidebar {
+            position:relative;
+            -webkit-transform: rotate(270deg);
+            top:50px;
+         }
+
+        input[type="range"]#slidebar2 {
+            position:relative;
+            -webkit-transform: rotate(270deg);
+            top:15px;
+            left:50px;
+         }
+      
+        body {
+            background-color: #000000;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .controls{
+             text-align: center;
+        }
+
+        #Steer {
+            background-color: #FFFFFF;
+            position: relative;
+        }
+              

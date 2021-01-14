@@ -1,0 +1,318 @@
+#define _CRT_SECURE_NO_DEPRECATE
+#define WINDOW_SIZE 44100
+#define NUM_COEFFICIENTS 400
+#define TRESHOLD 220000
+#define START_TRESHOLD 2
+#define END_TRESHOLD 13
+#define GRANULARITY int(WINDOW_SIZE/(NUM_COEFFICIENTS*2))
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+#include "string.h"
+#include <string>
+#include <complex>
+#include <cassert>
+#include <valarray>
+#include <windows.h> 
+
+using namespace std;
+
+const double PI = 3.141592653589793238460;
+
+typedef std::complex<double> Complex;
+typedef std::valarray<Complex> CArray;
+
+Complex com_window[WINDOW_SIZE];
+
+short int* to_mono(short int* x) {
+	short int* p_w = new short int[WINDOW_SIZE / 2];
+	memset(p_w, 0, sizeof(short int) * WINDOW_SIZE / 2);
+	for (int i = 0; i < WINDOW_SIZE / 2; i = i + 2) {
+		p_w[i] = x[i] / 2 + x[i + 1] / 2;
+	}
+	return p_w;
+}
+
+short int* low_pass(short int* x) {
+
+	int *y = new int[WINDOW_SIZE];
+	short int *result = new short int[WINDOW_SIZE];
+	memset(y, 0, sizeof(int) * WINDOW_SIZE);
+	memset(result, 0, sizeof(short int) * WINDOW_SIZE);
+
+	//FIRST FILTER
+	//y[n] = (1 * x[n - 1]) / 2.749
+	//+ (1 * x[n - 0]) / 2.749
+	//+ (0.7490960131 * y[n - 1]) / 2.749;
+
+	//SECOND FILTER
+	//y[n] = (1 * x[n - 2]) / 4.933
+	//+ (2 * x[n - 1]) / 4.933
+	//+ (1 * x[n - 0]) / 4.933
+	//+ (-0.6683689946 * y[n - 2]) / 4.933
+	//+ (1.6010923942 * y[n - 1]) / 4.933;
+
+	//THIRD FILTER
+	//y[n] = (1 * x[n - 2]) / 4.9815
+	//+ (2 * x[n - 1]) / 4.9815
+	//+ (1 * x[n - 0]) / 4.9815
+	//+ (-0.8175124034 * y[n - 2]) / 4.9815
+	//+ (1.7990964095 * y[n - 1]) / 4.9815;
+
+	//FOURTH FILTER
+	//y[n] = (1 * x[n - 2]) / 4.995
+	//+ (2 * x[n - 1]) / 4.995
+	//+ (1 * x[n - 0]) / 4.995
+
+	//+ (-0.9040596527 * y[n - 2]) / 4.995
+	//+ (1.8992193292 * y[n - 1]) / 4.995;
+
+	//FIFTH FILTER
+	//y[n] = (1 * x[n - 3]) / 8.993
+	//+ (3 * x[n - 2]) / 8.993
+	//+ (3 * x[n - 1]) / 8.993
+	//+ (1 * x[n - 0]) / 8.993
+	//+ (0.8670420126 * y[n - 3]) / 8.993
+	//+ (-2.7247727381 * y[n - 2]) / 8.993
+	//+ (2.8573925172 * y[n - 1]) / 8.993;
+
+	//SIXTH FILTER
+	//y[n] = (1 * x[n - 3]) / 9
+	//+ (3 * x[n - 2]) / 9
+	//+ (3 * x[n - 1]) / 9
+	//+ (1 * x[n - 0]) / 9
+	//+ (0.9311614800 * y[n - 3]) / 9
+	//+ (-2.8598902349 * y[n - 2]) / 9
+	//+ (2.9286849853 * y[n - 1]) / 9;
+	y[0] = x[0];
+	y[1] = x[1];
+	y[2] = y[2];
+	y[3] = y[3];
+
+	for (int n = 4; n < WINDOW_SIZE; n++)
+	{
+		y[n] = (1 * x[n - 4]) / 16.999
+			+ (4 * x[n - 3]) / 16.999
+			+ (6 * x[n - 2]) / 16.999
+			+ (4 * x[n - 1]) / 16.999
+			+ (1 * x[n - 0]) / 16.999
+			+ (-0.9110219631 * y[n - 4]) / 16.999
+			+ (3.7289769642 * y[n - 3]) / 16.999
+			+ (-5.7247764514 * y[n - 2]) / 16.999
+			+ (3.9068199063 * y[n - 1]) / 16.999;
+	}
+
+	for (int n = 1; n < WINDOW_SIZE; n++)
+	{
+		result[n] = y[n];
+	}
+
+	free(y);
+	return result;
+}
+
+short int* l_p(short int* x, int times) {
+	for (int i = 0; i < times; i++) {
+		x = low_pass(x);
+	}
+	return x;
+}
+
+int calc_average_value(CArray data, int start, int end, int norm)
+{
+	long average = 0;
+
+	for (int y = start; y < end; y++) {
+		average += abs(data[y]);
+	}
+
+	//cout << average << endl;
+	return int(average);
+}
+
+struct wav_header_t
+{
+	char chunkID[4]; //"RIFF" = 0x46464952
+	unsigned long chunkSize; //28 [+ sizeof(wExtraFormatBytes) + wExtraFormatBytes] + sum(sizeof(chunk.id) + sizeof(chunk.size) + chunk.size)
+	char format[4]; //"WAVE" = 0x45564157
+	char subchunk1ID[4]; //"fmt " = 0x20746D66
+	unsigned long subchunk1Size; //16 [+ sizeof(wExtraFormatBytes) + wExtraFormatBytes]
+	unsigned short audioFormat;
+	unsigned short numChannels;
+	unsigned long sampleRate;
+	unsigned long byteRate;
+	unsigned short blockAlign;
+	unsigned short bitsPerSample;
+	//[WORD wExtraFormatBytes;]
+	//[Extra format bytes]
+};
+
+//Chunks
+struct chunk_t
+{
+	char ID[4]; //"data" = 0x61746164
+	unsigned long size;  //Chunk data bytes
+};
+
+void fft(CArray& x)
+{
+	const size_t N = x.size();
+	if (N <= 1) return;
+
+	// divide
+	CArray even = x[std::slice(0, N / 2, 2)];
+	CArray  odd = x[std::slice(1, N / 2, 2)];
+
+	// conquer
+	fft(even);
+	fft(odd);
+
+	// combine
+	for (size_t k = 0; k < N / 2; ++k)
+	{
+		Complex t = std::polar(1.0, -2 * PI * k / N) * odd[k];
+		x[k] = even[k] + t;
+		x[k + N / 2] = even[k] - t;
+	}
+}
+
+void WavReader(const char* fileName, const char* data_train, int giv_class)
+{
+	FILE *fin = fopen(fileName, "rb");
+	FILE *fout_data_train = fopen(data_train, "a+");
+	//Read WAV header
+	wav_header_t header;
+	fread(&header, sizeof(header), 1, fin);
+	//Reading file
+	chunk_t chunk;
+	//printf("id\t" "size\n");
+	//go to data chunk
+	while (true)
+	{
+		fread(&chunk, sizeof(chunk), 1, fin);
+		//printf("%c%c%c%c\t" "%li\n", chunk.ID[0], chunk.ID[1], chunk.ID[2], chunk.ID[3], chunk.size);
+		if (*(unsigned int *)&chunk.ID == 0x61746164)
+			break;
+		//skip chunk data bytes
+		fseek(fin, chunk.size, SEEK_CUR);
+	}
+
+	//Number of samples
+	int sample_size = header.bitsPerSample / 8;
+	int samples_count = chunk.size * 8 / header.bitsPerSample;
+	printf("Samples count = %i\n", samples_count);
+
+	short int *window = new short int[WINDOW_SIZE];
+	short int* processed_window = new short int[WINDOW_SIZE / 2];
+	Complex com_window[WINDOW_SIZE / 2];
+	memset(window, 0, sizeof(short int) * WINDOW_SIZE / 2);
+	memset(processed_window, 0, sizeof(short int) * WINDOW_SIZE / 2);
+	//Reading data
+	//short int average = calc_average(value, samples_count);
+	int total_windows = samples_count / WINDOW_SIZE - 1;
+	for (int i = 0; i < total_windows; i++)
+	{
+		int k = 0;
+
+		for (int j = 0; j < WINDOW_SIZE; j++)
+		{
+			fread(&window[j], sample_size, 1, fin);
+		}
+
+		//window = l_p(window,1);
+
+		processed_window = to_mono(window);
+
+		for (int j = 0; j < WINDOW_SIZE / 2; j++)
+		{
+			com_window[j] = processed_window[j];
+		}
+
+		CArray data(com_window, WINDOW_SIZE / 2);
+
+		fft(data);
+
+		cout << i << " window" << endl;
+
+		int start = 0;
+		int end = 0;
+		string samples = "";
+		int total = 0;
+		float average = 0;
+		int norm = abs(data[0]);
+		try
+		{
+			for (int t = 0; t < NUM_COEFFICIENTS / 8; t++)
+			{
+				average = 0;
+				start = GRANULARITY*t;
+				end = GRANULARITY*(t + 1);
+				//cout << start << " " << end << endl;
+				average = calc_average_value(data, start, end, norm);
+				samples += to_string(int(average)) + " ";
+				if (t >= START_TRESHOLD || t < END_TRESHOLD) {
+					total = total + average;
+
+				}
+			}
+			//cout << total / (END_TRESHOLD - START_TRESHOLD) << endl;
+			if (total > TRESHOLD*(END_TRESHOLD - START_TRESHOLD)) {
+				fprintf(fout_data_train, "%s", samples.c_str());
+				fprintf(fout_data_train, "%d\n", giv_class);
+			}
+			else {
+				cout << " DISCARDED " << endl;
+			}
+		}
+		catch (int e) { cout << "error at window " << i << endl; }
+	}
+
+	free(window);
+	fclose(fin);
+	fclose(fout_data_train);
+}
+
+int main()
+{
+
+	string path = "C:\\Users\\domis\\Desktop\\Music_reduced\\";
+	string searchPattern = "*.wav";
+	string fullSearchPath = path + searchPattern;
+
+	WIN32_FIND_DATA FindData;
+	HANDLE hFind;
+
+	hFind = FindFirstFile(fullSearchPath.c_str(), &FindData);
+
+	if (hFind == INVALID_HANDLE_VALUE)
+	{
+		cout << "Error searching directory\n";
+		return -1;
+	}
+
+	do
+	{
+		string filePath = path + FindData.cFileName;
+		const char* sc = filePath.c_str();
+
+		if (filePath.find("£VOICE_FALSE") != std::string::npos) {
+			cout << filePath << " class " << 0 << endl;
+			WavReader(sc, "data_set.train", 0);
+		}
+
+		if (filePath.find("£VOICE_TRUE") != std::string::npos) {
+			cout << filePath << " class " << 1 << endl;
+			WavReader(sc, "data_set.train", 1);
+		}
+
+	} while (FindNextFile(hFind, &FindData) > 0);
+
+	if (GetLastError() != ERROR_NO_MORE_FILES)
+	{
+		cout << "Something went wrong during searching\n";
+	}
+
+	system("pause");
+	return 0;
+}
